@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -56,7 +56,8 @@ export default function Register() {
     }
 
     try {
-      const { confirmPassword, ...registerData } = formData;
+      const registerData = { ...formData };
+      delete registerData.confirmPassword;
       await register(registerData);
       navigate("/dashboard");
     } catch (error) {
@@ -65,25 +66,25 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-xl p-8 max-h-[90vh] overflow-y-auto">
-        <h2 className="text-3xl font-bold text-center mb-2 text-gray-800">
+    <div className="min-h-screen overflow-hidden py-16 flex items-center justify-center px-4 bg-slate-50">
+      <div className="w-full max-w-lg bg-white rounded-[20px] shadow-[0_35px_120px_rgba(15,23,42,0.12)] p-10 sm:p-8 max-h-[calc(100vh-5rem)] overflow-y-auto hide-scrollbar">
+        <h2 className="text-4xl font-semibold text-center mb-2 text-slate-900">
           Create Account
         </h2>
-        <p className="text-center text-gray-600 mb-6">
+        <p className="text-center text-slate-600 mb-8">
           Register to access student portal
         </p>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
+          <div className="mb-5 mt-3 h-9 px-5 bg-red-100 text-red-700 rounded-[9px] text-sm flex items-center shadow-sm">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Full Name *
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="w-full flex flex-col gap-2 mt-5">
+            <label className="text-left text-sm font-medium text-slate-700">
+              Full Name <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -91,13 +92,13 @@ export default function Register() {
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter your full name"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+              className="w-full max-w-full h-10 px-5 border border-slate-300 rounded-[9px] bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition shadow-sm"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email Address *
+          <div className="w-full flex flex-col gap-2">
+            <label className="text-left text-sm font-medium text-slate-700">
+              Email Address <span className="text-red-500">*</span>
             </label>
             <input
               type="email"
@@ -105,13 +106,13 @@ export default function Register() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+              className="w-full max-w-full h-10 px-5 border border-slate-300 rounded-[9px] bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition shadow-sm"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Roll Number *
+          <div className="w-full flex flex-col gap-2">
+            <label className="text-left text-sm font-medium text-slate-700">
+              Roll Number <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -119,14 +120,14 @@ export default function Register() {
               value={formData.rollNumber}
               onChange={handleChange}
               placeholder="Enter your roll number"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+              className="w-full max-w-full h-10 px-5 border border-slate-300 rounded-[9px] bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition shadow-sm"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Department *
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="w-full flex flex-col gap-2">
+              <label className="text-left text-sm font-medium text-slate-700">
+                Department <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -134,12 +135,12 @@ export default function Register() {
                 value={formData.department}
                 onChange={handleChange}
                 placeholder="e.g., CS, IT"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+                className="w-full max-w-full h-10 px-5 border border-slate-300 rounded-[9px] bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition shadow-sm"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Semester *
+            <div className="w-full flex flex-col gap-2">
+              <label className="text-left text-sm font-medium text-slate-700">
+                Semester <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
@@ -149,14 +150,14 @@ export default function Register() {
                 placeholder="1-8"
                 min="1"
                 max="8"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+                className="w-full max-w-full h-10 px-5 border border-slate-300 rounded-[9px] bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition shadow-sm"
               />
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Phone Number
+          <div className="w-full flex flex-col gap-2">
+            <label className="text-left text-sm font-medium text-slate-700">
+              Phone Number <span className="text-red-500">*</span>
             </label>
             <input
               type="tel"
@@ -164,13 +165,13 @@ export default function Register() {
               value={formData.phoneNumber}
               onChange={handleChange}
               placeholder="Enter your phone number"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+              className="w-full max-w-full h-10 px-5 border border-slate-300 rounded-[9px] bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition shadow-sm"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Password *
+          <div className="w-full flex flex-col gap-2">
+            <label className="text-left text-sm font-medium text-slate-700">
+              Password <span className="text-red-500">*</span>
             </label>
             <input
               type="password"
@@ -178,13 +179,13 @@ export default function Register() {
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter your password (min 6 chars)"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+              className="w-full max-w-full h-10 px-5 border border-slate-300 rounded-[9px] bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition shadow-sm"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Confirm Password *
+          <div className="w-full flex flex-col gap-2">
+            <label className="text-left text-sm font-medium text-slate-700">
+              Confirm Password <span className="text-red-500">*</span>
             </label>
             <input
               type="password"
@@ -192,14 +193,14 @@ export default function Register() {
               value={formData.confirmPassword}
               onChange={handleChange}
               placeholder="Confirm your password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition"
+              className="w-full max-w-full h-10 px-5 border border-slate-300 rounded-[9px] bg-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition shadow-sm"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white font-semibold py-2 rounded-md transition duration-200 flex items-center justify-center mt-4"
+            className="w-full h-10 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-semibold rounded-[9px] transition duration-200 flex items-center justify-center shadow-md"
           >
             {loading ? (
               <>
@@ -212,9 +213,12 @@ export default function Register() {
           </button>
         </form>
 
-        <p className="text-center text-gray-600 mt-4">
+        <p className="text-center text-slate-600 pt-5">
           Already have an account?{" "}
-          <Link to="/login" className="text-green-500 hover:text-green-700 font-semibold">
+          <Link
+            to="/login"
+            className="text-blue-600 hover:text-blue-800 font-semibold"
+          >
             Login here
           </Link>
         </p>

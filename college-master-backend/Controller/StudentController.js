@@ -11,8 +11,15 @@ const generateToken = (id) => {
 // Register Student
 exports.registerStudent = async (req, res) => {
   try {
-    const { name, email, password, rollNumber, department, semester, phoneNumber } =
-      req.body;
+    const {
+      name,
+      email,
+      password,
+      rollNumber,
+      department,
+      semester,
+      phoneNumber,
+    } = req.body;
 
     // Check if student already exists
     const existingStudent = await Student.findOne({
@@ -34,6 +41,14 @@ exports.registerStudent = async (req, res) => {
       department,
       semester,
       phoneNumber,
+      totalSubjects: 0,
+      attendancePercentage: 0,
+      pendingFees: 0,
+      cgpa: 0,
+      subjects: [],
+      notices: [],
+      activities: [],
+      fees: [],
     });
 
     const token = generateToken(student._id);
@@ -148,7 +163,7 @@ exports.updateStudentProfile = async (req, res) => {
     const student = await Student.findByIdAndUpdate(
       req.student.id,
       { name, phoneNumber, department, semester },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     res.status(200).json({

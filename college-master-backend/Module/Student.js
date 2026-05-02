@@ -41,12 +41,67 @@ const studentSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    totalSubjects: {
+      type: Number,
+      default: 0,
+    },
+    attendancePercentage: {
+      type: Number,
+      default: 0,
+    },
+    pendingFees: {
+      type: Number,
+      default: 0,
+    },
+    cgpa: {
+      type: Number,
+      default: 0,
+    },
+    subjects: [
+      {
+        name: { type: String, default: "" },
+        teacher: { type: String, default: "" },
+        attendance: { type: Number, default: 0 },
+        internalScore: { type: String, default: "" },
+        externalScore: { type: String, default: "" },
+        totalScore: { type: String, default: "" },
+        grade: { type: String, default: "" },
+        credits: { type: String, default: "" },
+      },
+    ],
+    notices: [
+      {
+        title: { type: String, default: "" },
+        date: { type: String, default: "" },
+        subtitle: { type: String, default: "" },
+      },
+    ],
+    activities: [
+      {
+        title: { type: String, default: "" },
+        description: { type: String, default: "" },
+        time: { type: String, default: "" },
+        icon: { type: String, default: "" },
+        iconColor: { type: String, default: "" },
+      },
+    ],
+    fees: [
+      {
+        semester: { type: String, default: "" },
+        total: { type: String, default: "" },
+        paid: { type: String, default: "" },
+        pending: { type: String, default: "" },
+        due: { type: String, default: "" },
+        status: { type: String, default: "" },
+        statusClass: { type: String, default: "" },
+      },
+    ],
     isActive: {
       type: Boolean,
       default: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // Hash password before saving

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { studentAPI } from "../services/studentAPI";
 
 const AuthContext = createContext();
@@ -8,13 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  // Check if student is logged in on mount
-  useEffect(() => {
-    if (token) {
-      fetchStudentProfile();
-    }
-  }, [token]);
 
   const fetchStudentProfile = async () => {
     try {
@@ -29,6 +22,13 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
+  // Check if student is logged in on mount
+  useEffect(() => {
+    if (token) {
+      fetchStudentProfile();
+    }
+  }, [token]);
 
   const register = async (data) => {
     try {
@@ -108,11 +108,7 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: !!token,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
